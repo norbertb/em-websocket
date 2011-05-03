@@ -105,11 +105,13 @@ module EventMachine
       end
 
       def send(data)
-        debug [:send, data]
+        # debug [:send, data]
 
         if @handler
           @handler.send_text_frame(data)
+          data = ""
         else
+          data = ""
           raise WebSocketError, "Cannot send data before onopen callback"
         end
       end
