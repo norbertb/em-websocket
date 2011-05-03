@@ -13,7 +13,7 @@ module EventMachine
       end
       
       def process_data(newdata)
-        debug [:message, @data]
+        #debug [:message, @data]
 
         # This algorithm comes straight from the spec
         # http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol-76#section-5.3
@@ -47,7 +47,7 @@ module EventMachine
             end
 
             if @data.getbyte(pointer+length-1) == nil
-              debug [:buffer_incomplete, @data.inspect]
+              #debug [:buffer_incomplete, @data.inspect]
               # Incomplete data - leave @data to accumulate
               error = true
             else
