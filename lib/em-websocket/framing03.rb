@@ -61,7 +61,11 @@ module EventMachine
           end
 
           # Throw away data up to pointer
-          @data.slice!(0...pointer)
+          #@data.slice!(0...pointer)
+          @old_data = @data
+          @data = @old_data.slice(0..pointer)
+          @old_data = nil
+          GC.start
 
           # Read application data
           application_data = @data.slice!(0...payload_length)
