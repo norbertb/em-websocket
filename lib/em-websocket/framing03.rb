@@ -62,9 +62,10 @@ module EventMachine
 
           # Throw away data up to pointer
           #@data.slice!(0...pointer)
-          @old_data = @data
-          @data = @old_data.slice(0..pointer)
-          @old_data = nil
+          @new_data = @data.slice(0..pointer).dup
+          @data = nil
+          @data = @new_data
+          @new_data = il
           GC.start
 
           # Read application data
