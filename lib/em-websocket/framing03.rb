@@ -65,7 +65,7 @@ module EventMachine
           @new_data = @data.slice(0..pointer).dup
           @data = nil
           @data = @new_data
-          @new_data = il
+          @new_data = nil
           GC.start
 
           # Read application data
