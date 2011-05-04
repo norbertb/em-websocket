@@ -3,7 +3,7 @@ require 'addressable/uri'
 module EventMachine
   module WebSocket
     class Connection < EventMachine::Connection
-      include Debugger
+      #include Debugger
 
       # define WebSocket callbacks
       def onopen(&blk);     @onopen = blk;    end
@@ -23,12 +23,12 @@ module EventMachine
 
       def initialize(options)
         @options = options
-        @debug = options[:debug] || false
+        #@debug = options[:debug] || false
         @secure = options[:secure] || false
         @tls_options = options[:tls_options] || {}
         @data = ''
 
-        debug [:initialize]
+        #debug [:initialize]
       end
 
       # Use this method to close the websocket connection cleanly
@@ -48,7 +48,7 @@ module EventMachine
       end
 
       def receive_data(data)
-        debug [:receive_data, data]
+        #debug [:receive_data, data]
 
         if @handler
           @handler.receive_data(data)
@@ -58,7 +58,7 @@ module EventMachine
       end
 
       def unbind
-        debug [:unbind, :connection]
+        #debug [:unbind, :connection]
 
         @handler.unbind if @handler
       end
@@ -68,10 +68,10 @@ module EventMachine
           send_flash_cross_domain_file
           return false
         else
-          debug [:inbound_headers, data]
+          #debug [:inbound_headers, data]
           begin
             @data << data
-            @handler = HandlerFactory.build(self, @data, @secure, @debug)
+            @handler = HandlerFactory.build(self, @data, @secure)
             unless @handler
               # The whole header has not been received yet.
               return false
@@ -80,7 +80,7 @@ module EventMachine
             @handler.run
             return true
           rescue => e
-            debug [:error, e]
+            #debug [:error, e]
             process_bad_request(e)
             return false
           end
@@ -95,7 +95,7 @@ module EventMachine
 
       def send_flash_cross_domain_file
         file =  '<?xml version="1.0"?><cross-domain-policy><allow-access-from domain="*" to-ports="*"/></cross-domain-policy>'
-        debug [:cross_domain, file]
+        #debug [:cross_domain, file]
         send_data file
 
         # handle the cross-domain request transparently

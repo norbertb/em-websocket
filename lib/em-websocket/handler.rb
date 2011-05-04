@@ -1,13 +1,13 @@
 module EventMachine
   module WebSocket
     class Handler
-      include Debugger
+      #include Debugger
 
       attr_reader :request, :state
 
-      def initialize(connection, request, debug = false)
+      def initialize(connection, request)
         @connection, @request = connection, request
-        @debug = debug
+        #@debug = debug
         @state = :handshake
         initialize_framing
       end

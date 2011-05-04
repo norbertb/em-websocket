@@ -86,7 +86,7 @@ module EventMachine
             if msg
               msg.gsub!(/\A\x00|\xff\z/, '')
               if @state == :closing
-                debug [:ignored_message, msg]
+                #debug [:ignored_message, msg]
               else
                 msg.force_encoding('UTF-8') if msg.respond_to?(:force_encoding)
                 @connection.trigger_on_message(msg)

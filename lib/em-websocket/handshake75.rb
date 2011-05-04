@@ -12,7 +12,7 @@ module EventMachine
         upgrade << "WebSocket-Origin: #{request['Origin']}\r\n"
         upgrade << "WebSocket-Location: #{location}\r\n\r\n"
 
-        debug [:upgrade_headers, upgrade]
+        #debug [:upgrade_headers, upgrade]
 
         return upgrade
       end

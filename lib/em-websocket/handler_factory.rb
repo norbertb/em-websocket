@@ -4,7 +4,7 @@ module EventMachine
       PATH   = /^(\w+) (\/[^\s]*) HTTP\/1\.1$/
       HEADER = /^([^:]+):\s*(.+)$/
 
-      def self.build(connection, data, secure = false, debug = false)
+      def self.build(connection, data, secure = false)
         (header, remains) = data.split("\r\n\r\n", 2)
         unless remains
           # The whole header has not been received yet.
@@ -62,15 +62,15 @@ module EventMachine
         if version = request['Sec-WebSocket-Draft']
           if version == '1' || version == '2' || version == '3'
             # We'll use handler03 - I believe they're all compatible
-            Handler03.new(connection, request, debug)
+            Handler03.new(connection, request)
           else
             # According to spec should abort the connection
             raise WebSocketError, "Unknown draft version: #{version}"
           end
         elsif request['Sec-WebSocket-Key1']
-          Handler76.new(connection, request, debug)
+          Handler76.new(connection, request)
         else
-          Handler75.new(connection, request, debug)
+          Handler75.new(connection, request)
         end
       end
     end

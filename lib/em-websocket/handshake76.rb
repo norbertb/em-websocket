@@ -26,7 +26,7 @@ module EventMachine
         upgrade << "\r\n"
         upgrade << challenge_response
 
-        debug [:upgrade_headers, upgrade]
+        #debug [:upgrade_headers, upgrade]
 
         return upgrade
       end
